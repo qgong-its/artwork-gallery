@@ -1,0 +1,19 @@
+/**
+ * 加载 Tailwind 基础层
+ */
+@import 'tailwindcss';
+
+/**
+ * 以插件形式加载 DaisyUI，获得更好的性能和集成度
+ * Temporarily disabled due to compatibility issues: daisyUI + Tailwind v4 + Vite 8 + Node >=22
+ */
+/* @plugin "daisyui"; */
+
+/**
+ * TEMP workaround for DaisyUI plugin issue
+ * add into vite.config.js
+ * optimizeDeps: {
+ *   include: ['daisyui'],
+ * },
+ */
+@import 'daisyui/daisyui.css';
