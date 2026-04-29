@@ -1,5 +1,6 @@
 import type { Artwork } from '@/schemas/artworkSchema';
-import ArtworkCard from './ArtWorkCard';
+
+import ArtworkCard from './ArtworkCard';
 
 type GalleryProps = {
   artworks: Artwork[];
