@@ -5,12 +5,14 @@ type SavedGalleryPageProps = {
   savedArtworks: Artwork[];
   isSaved: (artworkId: number) => boolean;
   onToggleSave: (artwork: Artwork) => void;
+  onUpdateNote: (artworkId: number, note: string) => void;
 };
 
 const SavedGalleryPage = ({
   savedArtworks,
   isSaved,
   onToggleSave,
+  onUpdateNote,
 }: SavedGalleryPageProps) => {
   return (
     <section className="container mx-auto p-4">
@@ -23,6 +25,8 @@ const SavedGalleryPage = ({
           artworks={savedArtworks}
           isSaved={isSaved}
           onToggleSave={onToggleSave}
+          onUpdateNote={onUpdateNote}
+          showNote
         />
       )}
     </section>
