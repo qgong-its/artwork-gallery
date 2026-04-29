@@ -1,5 +1,5 @@
-import { ArtworkList } from "@/components/ui/ArtworkList";
-import type { Artwork } from "@/schemas/artworkSchema";
+import { ArtworkList } from '@/components/ui/ArtworkList';
+import type { Artwork } from '@/schemas/artworkSchema';
 
 type SavedGalleryPageProps = {
   savedArtworks: Artwork[];
@@ -7,20 +7,26 @@ type SavedGalleryPageProps = {
   onToggleSave: (artwork: Artwork) => void;
 };
 
-export function SavedGalleryPage({
+const SavedGalleryPage = ({
   savedArtworks,
   isSaved,
   onToggleSave,
-}: SavedGalleryPageProps) {
+}: SavedGalleryPageProps) => {
   return (
-    <main className="container mx-auto p-4">
+    <section className="container mx-auto p-4">
       <h1 className="mb-4 text-2xl font-bold">My Gallery</h1>
 
-      <ArtworkList
-        artworks={savedArtworks}
-        isSaved={isSaved}
-        onToggleSave={onToggleSave}
-      />
-    </main>
+      {savedArtworks.length === 0 ? (
+        <p className="text-center opacity-70">No saved artworks yet.</p>
+      ) : (
+        <ArtworkList
+          artworks={savedArtworks}
+          isSaved={isSaved}
+          onToggleSave={onToggleSave}
+        />
+      )}
+    </section>
   );
-}
+};
+
+export default SavedGalleryPage;
