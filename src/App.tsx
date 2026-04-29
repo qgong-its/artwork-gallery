@@ -1,7 +1,10 @@
 import '@/styles/App.css';
 
 import { useState } from 'react';
+
 import Navbar from '@/components/layout/Navbar';
+import Gallery from "@/components/ui/Gallery";
+
 import { searchArtworks } from '@/services/artworkApi';
 import type { Artwork } from '@/schemas/artworkSchema';
 
@@ -32,7 +35,9 @@ const App = () => {
       <main className="container mx-auto p-4">
         {isLoading && <p>Loading...</p>}
         {errorMessage && <p className="text-error">{errorMessage}</p>}
-        <pre>{JSON.stringify(artworks, null, 2)}</pre>
+
+
+<Gallery artworks={artworks} />
       </main>
     </>
   );
