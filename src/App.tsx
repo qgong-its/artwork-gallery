@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import HomePage from '@/pages/HomPage';
+import SavedGalleryPage from '@/pages/SavedGalleryPage';
 import { searchArtworks } from '@/services/artworkApi';
 import { useLocalArtworks } from '@/hooks/useLocalArtworks';
 import type { Artwork } from '@/schemas/artworkSchema';
@@ -12,7 +13,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('');
 
   // 本地收藏（gallery）
-  const { isSaved, toggleArtwork } = useLocalArtworks();
+  const { localArtworks, isSaved, toggleArtwork } = useLocalArtworks();
 
   // 搜索逻辑
   const handleSearch = async (query: string) => {
@@ -38,6 +39,12 @@ function App() {
         artworks={artworks}
         isLoading={isLoading}
         errorMessage={errorMessage}
+        isSaved={isSaved}
+        onToggleSave={toggleArtwork}
+      />
+
+      <SavedGalleryPage
+        savedArtworks={localArtworks}
         isSaved={isSaved}
         onToggleSave={toggleArtwork}
       />
