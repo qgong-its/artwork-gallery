@@ -1,16 +1,20 @@
-import type { Artwork } from '@/schemas/artworkSchema';
-import ArtworkCard from './ArtworkCard';
+import type { Artwork, SavedArtwork } from "@/schemas/artworkSchema";
+import ArtworkCard from "./ArtworkCard";
 
 type ArtworkListProps = {
-  artworks: Artwork[];
+  artworks: Artwork[] | SavedArtwork[];
   isSaved?: (artworkId: number) => boolean;
   onToggleSave?: (artwork: Artwork) => void;
+  onUpdateNote?: (artworkId: number, note: string) => void;
+  showNote?: boolean;
 };
 
 export function ArtworkList({
   artworks,
   isSaved,
   onToggleSave,
+  onUpdateNote,
+  showNote = false,
 }: ArtworkListProps) {
   if (artworks.length === 0) {
     return <p className="text-center opacity-70">No artworks found.</p>;
@@ -24,6 +28,8 @@ export function ArtworkList({
           artwork={artwork}
           isSaved={isSaved?.(artwork.id)}
           onToggleSave={onToggleSave}
+          onUpdateNote={onUpdateNote}
+          showNote={showNote}
         />
       ))}
     </div>

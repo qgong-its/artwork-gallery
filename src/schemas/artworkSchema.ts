@@ -25,3 +25,15 @@ export type Pagination = z.infer<typeof paginationSchema>;
 export type Artwork = z.infer<typeof artworkSchema>;
 
 export type ArtworkResponse = z.infer<typeof responseSchema>;
+
+export const noteSchema = z
+  .string()
+  .trim()
+  .max(200, 'Note must be 200 characters or less')
+  .catch('');
+
+export const savedArtworkSchema = artworkSchema.extend({
+  note: noteSchema,
+});
+
+export type SavedArtwork = z.infer<typeof savedArtworkSchema>;

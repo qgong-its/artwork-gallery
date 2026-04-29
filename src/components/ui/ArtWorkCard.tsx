@@ -1,15 +1,19 @@
-import type { Artwork } from '@/schemas/artworkSchema';
+import type { Artwork, SavedArtwork } from '@/schemas/artworkSchema';
 
 type ArtworkCardProps = {
-  artwork: Artwork;
+  artwork: Artwork | SavedArtwork;
   isSaved?: boolean;
   onToggleSave?: (artwork: Artwork) => void;
+  onUpdateNote?: (artworkId: number, note: string) => void;
+  showNote?: boolean;
 };
 
 const ArtworkCard = ({
   artwork,
   isSaved = false,
   onToggleSave,
+  onUpdateNote,
+  showNote = false,
 }: ArtworkCardProps) => {
   // const { title, artist_title, image_id } = artwork;
 
@@ -43,6 +47,15 @@ const ArtworkCard = ({
           className="object-cover w-full h-full"
         />
       </figure>
+
+      {showNote && 'note' in artwork && (
+        <textarea
+          className="textarea textarea-bordered w-full"
+          placeholder="Add a note..."
+          value={artwork.note}
+          onChange={(event) => onUpdateNote?.(artwork.id, event.target.value)}
+        />
+      )}
     </div>
   );
 };

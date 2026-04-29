@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
-import type { Artwork } from '@/schemas/artworkSchema';
+import {
+  noteSchema,
+  type Artwork,
+  type SavedArtwork,
+} from '@/schemas/artworkSchema';
 import { loadFromStorage, saveToStorage, STORAGE_KEY } from '@/utils/storage';
 
 export const useLocalArtworks = () => {
-  const [localArtworks, setLocalArtworks] = useState<Artwork[]>(() =>
-    loadFromStorage<Artwork[]>(STORAGE_KEY, []),
+  const [localArtworks, setLocalArtworks] = useState<SavedArtwork[]>(() =>
+    loadFromStorage<SavedArtwork[]>(STORAGE_KEY, []),
   );
 
   useEffect(() => {
@@ -21,7 +25,7 @@ export const useLocalArtworks = () => {
         return currentArtworks;
       }
 
-      return [...currentArtworks, artwork];
+      return [...currentArtworks, { ...artwork, note: '' }];
     });
   };
 
@@ -40,11 +44,22 @@ export const useLocalArtworks = () => {
     addArtwork(artwork);
   };
 
+  const updateNote = (artworkId: number, note: string) => {
+    const parsedNote = noteSchema.parse(note);
+
+    setLocalArtworks((currentArtworks) =>
+      currentArtworks.map((artwork) =>
+        artwork.id === artworkId ? { ...artwork, note: parsedNote } : artwork,
+      ),
+    );
+  };
+
   return {
     localArtworks,
     isSaved,
     addArtwork,
     removeArtwork,
     toggleArtwork,
+    updateNote,
   };
 };
